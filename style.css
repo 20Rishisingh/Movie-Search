@@ -1,0 +1,97 @@
+*{
+   margin: 0;
+   padding: 0;
+   box-sizing: border-box;
+}
+
+body {
+   font-family: Arial, sans-serif;
+   background-color: #ea5858;
+   color: yellow;
+}
+
+.logo{
+   display: flex;
+   justify-content: space-evenly;
+   flex-direction: column;
+   align-items: center;
+   margin: 10px;
+   /* padding: 15px; */
+   /* border: 2px solid; */
+   height: 60vh;
+}
+
+.logo h1{
+   font-family: cursive;
+   font-size: 50px;
+   text-decoration: 3px underline black;
+}
+
+.logo img{
+   height: 200px;
+   width: 200px;
+   border-radius: 50%;
+}
+
+input{
+   padding: 10px;
+   width: 400px;
+   border: 2px solid black;
+   border-radius: 5px;
+   font-size: 16px;
+   cursor: pointer;
+}
+
+input:focus {
+   outline: none;
+   border-color: yellow;
+   cursor: text;
+}
+
+.MovieContainer{
+   font-size: 25px;
+   text-align: center;
+   margin: 30px 80px;
+   padding: 15px;
+   display: grid;
+   grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+   grid-column-gap: 250px;
+   grid-row-gap: 50px;
+}
+
+
+#paginationContainer {
+   display: flex;
+   justify-content: center;
+   align-items: center;
+   margin: 100px;
+   /* padding: 15px; */
+}
+
+#paginationContainer button {
+   padding: 10px 20px;
+   margin: 0 25px;
+   background-color: yellow;
+   color: #ea5858;
+   font-size: 25px;
+   font-weight: bold;
+   border: none;
+   border-radius: 50%;
+   cursor: pointer;
+}
+
+#paginationContainer button:hover {
+   background-color: #ea5858;
+   color: white;
+   border: 3px solid yellow;
+   box-shadow: 6px 6px 10px yellow;
+   transition: background-color 1s;
+}
+
+#paginationContainer button:disabled {
+   background-color: white;
+   color: #ea5858;
+   cursor: not-allowed;
+   box-shadow: none;
+}
+
