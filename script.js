@@ -1,79 +1,91 @@
-const inputText = document.getElementById("text");
-const MovieContainer = document.getElementById("MovieContainer");
-const paginationContainer = document.getElementById("paginationContainer");
+const Products = [
+   {id: 1, name: "Shirt", price:299},
+   {id: 2, name: "T-Shirt", price:199},
+   {id: 3, name: "Jeans", price:499},
+   {id: 4, name: "Kurta", price:599},
+];
 
-const API_KEY = `dc22d0fe`;
-const BASE_URL = `http://www.omdbapi.com/?i=tt3896198&apikey=893a0a8`;
 
-async function fetchMovies(page = 1) {
-   window.scroll(0,0);
+let productItemList = document.querySelector(".product");
+let cartItemList = document.querySelector(".box");
+let para =document.querySelector(".msg");
+let totalPrice = document.querySelector(".total")
 
-   if (inputText.value == "") {
-      alert("Enter a Movie name in search box");
+
+function changequantity(e , count){
+   e.target.parentNode.children[1].innerText = count
+   let productName =  e.target.parentNode.parentNode.children[0].innerText;
+   Products.forEach((prod) => {
+      if(prod.name === productName){
+         prod.count = count; 
+      }
+   });
+    
+   cartItemList.innerHTML = "";
+   let total = 0;
+
+   Products.forEach((ele)=>{
+      if(ele.count > 0){
+         let div = document.createElement("div");
+         div.innerHTML = `
+         <div >${ele.name}</div>
+         <div class="price"><div>${ele.count}</div>
+         <div>x</div>
+         <div>${ele.price}</div></div>`
+         
+         div.classList.add('cartItem')
+         cartItemList.appendChild(div);
+
+         total += ele.count * ele.price
+         totalPrice.innerHTML= ` Final Ammount = ₹${total}/- Only`;
+      }
+   });
+
+   if (cartItemList.children.length === 0) {
+      let para = document.createElement("p")
+      para.innerHTML = `Please add some Items in cart`;
+      para.style.fontSize ='25px'
+      para.style.padding = '5rem 3rem'
+      para.style.fontWeight = 'bold'
+      cartItemList.appendChild(para);
+      totalPrice.innerHTML= ` Final Ammount = 00/-`;
    }
-   let respons = await fetch(`${BASE_URL}&s=${inputText.value}&page=${page}`);
-   let data = await respons.json();
-   console.log(data);
-   const { Search, totalResults, Response } = data;
-   console.log(Search, totalResults, Response);
-
-   if(data.Response == "False"){
-      MovieContainer.innerHTML = `No movies found for ${inputText.value}, please search for any other movie`;
-   } 
-   else{
-      MovieContainer.innerHTML = "";
-
-      let i = 1;
-      Search.forEach((movie) => {
-      let card = document.createElement("div");
-      card.classList.add(
-         "w-56",
-         "h-96",
-         "flex",
-         "flex-col",
-         "gap-3",
-         "rounded-md",
-         "shadow-2xl",
-         "mb-20"
-      );
-
-
-      card.innerHTML = `
-      <h1> <img src = ${movie.Poster} alt="movie Poster" </h1>
-      <h1 class="text-wrap my-2">${i}. ${movie.Title}</h1> `;
-      i++;
-      MovieContainer.appendChild(card);
-    });
-
-    displayPagination(page, totalResults);
-  }
 }
 
-let debounce = (fetchMovies, delay) => {
-   let timer;
 
-   return function () {
-      timer && clearInterval(timer);
-      timer = setTimeout(() => {
-      fetchMovies();
-      }, delay);
-   };
-};
+productItemList.addEventListener('click', (e)=>{
+   let count = 0;
 
-function displayPagination(currentPage, totalResults){
-   const totalPage = Math.ceil(totalResults / 10);
-   paginationContainer.innerHTML = `
-   <button onclick="fetchMovies(${currentPage - 1})" ${
-      currentPage == 1 ? "disabled" : ""
-   } class="bg-yellow-500 hover:bg-yellow-600 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline">Previous</button>
-  <button class="text-2xl font-bold mx-5">${currentPage}</button>
-  <button onclick="fetchMovies(${currentPage + 1})" ${
-    currentPage == totalResults ? "disabled" : ""
-  } class="bg-yellow-500 hover:bg-yellow-600 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline">Next</button>`;
+   if(e.target.innerText === "+"){
+      count = Number(e.target.parentNode.children[1].innerText)
+      count++
+      changequantity(e, count)
+   }
+   else if(e.target.innerText === "-"){
+      count = Number(e.target.parentNode.children[1].innerText)
+      if(count > 0){
+         count--;
+         changequantity(e, count)
+      }
+      else{
+         alert("Item Quantity can not be negative");
+      }
+   }
+});
+
+
+function showproductList(){
+   Products.forEach((e)=>{
+      let div = document.createElement("div");
+
+      div.innerHTML = `
+         <div class="Name">${e.name}</div>
+         <div class="rate"> ₹${e.price}/-</div>
+         <div class="addorremoveBtn"> 
+         <span class="minus"> - </span><p class="quantity"> 0 </p><span class="plus"> + </span>  </div>`
+         div.classList.add("productstyle")
+         productItemList.appendChild(div);
+   })
 }
 
-document
-   .getElementById("text")
-   .addEventListener("input", debounce(fetchMovies, 300));
-
-
+window.onload = showproductList();

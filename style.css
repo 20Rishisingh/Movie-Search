@@ -1,97 +1,168 @@
-*{
-   margin: 0;
+* {
+   margin: 0px;
    padding: 0;
    box-sizing: border-box;
-}
+ }
 
 body {
-   font-family: Arial, sans-serif;
-   background-color: #ea5858;
-   color: yellow;
+   height: 100vh;
+   width: 100%;
+   background-color: #d4824c;
+   color: #d6e6db;
+   overflow: hidden;
+   font-family:'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
 }
 
-.logo{
+.heading{
+   text-align: center;
+   font-size: 60px;
+   font-family: cursive;
+   text-decoration: 3px underline #d6e6db;
+   color: #fdf0ea;
+   margin: 10px;
+}
+
+.container {
+   margin: auto;
+   display: flex;
+   justify-content: space-around;
+   height: 80vh;
+   width: 90vw;
+   padding: 20px;
+}
+
+h1{
+   color: #fdf0ea;
+   margin-top: 10px;
+}
+
+.product {
+   background-color: #6499a7;
+   height: 65%;
+   width: 80%;
+   font-size: 30px;
+   text-align: center;
+   border-radius: 20px;
+   margin: auto 50px;
+   box-shadow: 8px 8px 10px #fdf0ea;
+}
+ 
+hr{
+   margin: 1rem;
+   margin-bottom: 2rem;
+}
+
+.productstyle{
+   font-size: 30px;
+   font-weight: bold;
+   color: white;
    display: flex;
    justify-content: space-evenly;
-   flex-direction: column;
    align-items: center;
-   margin: 10px;
-   /* padding: 15px; */
-   /* border: 2px solid; */
-   height: 60vh;
+   width: 90%;
+   border-radius: 1rem;
+   height: 3rem;
+   margin: 25px auto;
+   border: 3px solid #d6e6db;
 }
 
-.logo h1{
-   font-family: cursive;
-   font-size: 50px;
-   text-decoration: 3px underline black;
-}
+.addorremoveBtn {
+   margin: 5px;
+   display: flex;
+   align-items: center;
+   font-size: 25px;
+ }
 
-.logo img{
-   height: 200px;
-   width: 200px;
-   border-radius: 50%;
-}
-
-input{
-   padding: 10px;
-   width: 400px;
-   border: 2px solid black;
-   border-radius: 5px;
-   font-size: 16px;
+ .addorremoveBtn span {
+   padding: 5px 15px;
+   border: 2px solid #d6e6db;
+   color: white;
+   border-radius: 50px;
+   margin: 2px;
    cursor: pointer;
 }
 
-input:focus {
-   outline: none;
-   border-color: yellow;
-   cursor: text;
+.addorremoveBtn .minus{
+   background-color: red;
 }
 
-.MovieContainer{
-   font-size: 25px;
+.addorremoveBtn .plus{
+   background-color: rgb(40, 204, 40);
+}
+
+.addorremoveBtn .minus:hover {
+   transition: all 1s ease;
+   background-color: #6499a7;
+   color: black;
+   border: 5px solid red;
+}
+
+.addorremoveBtn .plus:hover {
+   transition: all 0.5s ease;
+   background-color: #6499a7;
+   color: black;
+   border: 5px solid rgb(40, 204, 40);
+}
+
+.quantity{
+   width: 40px;
+   margin: 1px 25px;
+}
+ 
+.cart{
+   background-color: #6499a7;
+   height: 75%;
+   width: 60%;
+   font-size: 30px;
    text-align: center;
-   margin: 30px 80px;
-   padding: 15px;
-   display: grid;
-   grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-   grid-column-gap: 250px;
-   grid-row-gap: 50px;
+   border-radius: 20px;
+   margin: auto 40px;
+   box-shadow: 8px 8px 10px #fdf0ea;
+}
+ 
+.msg{
+   margin: 5rem;
+   font-size: 30px;
+   color: white;
 }
 
-
-#paginationContainer {
+.box {
    display: flex;
-   justify-content: center;
+   flex-direction: column;
+   justify-content: space-evenly;
    align-items: center;
-   margin: 100px;
-   /* padding: 15px; */
-}
-
-#paginationContainer button {
-   padding: 10px 20px;
-   margin: 0 25px;
-   background-color: yellow;
-   color: #ea5858;
    font-size: 25px;
    font-weight: bold;
-   border: none;
-   border-radius: 50%;
-   cursor: pointer;
-}
-
-#paginationContainer button:hover {
-   background-color: #ea5858;
    color: white;
-   border: 3px solid yellow;
-   box-shadow: 6px 6px 10px yellow;
-   transition: background-color 1s;
+}
+ 
+.cartItem{
+   margin: 0.5rem 0.6rem;
+   display: flex;
+   justify-content: space-evenly;
+   padding: 10px;
+   border-radius: 1rem;
+   border: 3px solid #d6e6db;
+   width: 80%;
 }
 
-#paginationContainer button:disabled {
-   background-color: white;
-   color: #ea5858;
-   cursor: not-allowed;
-   box-shadow: none;
+.price {
+   display: flex;
+   align-items: center;
+   gap: 20px;
+}
+
+.total{
+   margin: 8px auto;
+   padding: 10px 15px;
+   font-size: 30px;
+   width: 80%;
+   height: 60px;   
+   text-align: center;
+   align-items: center;
+   background: #000000;
+   color: white;
+   border: 3px solid gold;
+   border-radius: 10px;
 }
 
