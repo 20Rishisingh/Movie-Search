@@ -1,39 +1,67 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-   <meta charset="UTF-8" />
-   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-   <title>Add to Cart</title>
-      <link rel="stylesheet" href="./style.css" />
+   <meta charset="UTF-8">
+   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+   <title> Github User Info </title>
+   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200"/>
+   <link rel="stylesheet" href="./style.css">
 </head>
+
 <body>
-
-   <h1 class="heading"> Add Items to Cart </h1>
-   
-   <div class="container">
-      
-      <div class="product">
-         <h1> Items </h1>
-         <hr/>
-         <div class="ItemList"> 
-
-         </div>
+   <main>
+      <h1> Github User Information </h1>   
+      <div class="search-bar">
+         <input class="search" type="text" id="Input" placeholder="Enter user ID">
+         <button id="srchBtn" class="srchBtn"> Search </button>
       </div>
-      
-      <div class="cart">
-         <h1> Cart </h1>
-         <hr/>
-         <div class="box">
-            <p class="msg">Please add some Items in cart</p>
-         
-         </div>
-         
-         <div>
-            <p class="total"> Final Ammount </p>
-         </div>
-      </div>
-    </div>
 
-    <script src="./script.js"></script>
-  </body>
+   </main>
+
+   <div id="main-card" class="card">
+
+      <div class="userInfo">
+         <img id="dp" class="userImg" src='https://cdn.pixabay.com/photo/2020/07/01/12/58/icon-5359553_640.png' alt='User Image'>
+      
+         <h2 id="userName" class="userName">User Name</h2>
+
+         <p id="userBio" class="userBio"> User Bio</p>
+
+         <p id="userlocation" class="userLocation"> User Location </p>
+
+         <p id="joined" class="userJoin"> Github join date </p>
+
+      </div>
+
+      <ul class="repoNfollow">
+         <li class="userRepo">
+            <span class="material-symbols-outlined">
+               receipt_long
+            </span>
+            <div id="repo"> 216 </div>
+         </li>
+
+         <li class="userFollower">
+            <span class="material-symbols-outlined">
+               groups
+            </span>
+            <div id="followers"> 1k </div>
+         </li>
+
+         <li class="userFollows">
+            <span class="material-symbols-outlined">
+               group
+            </span>
+            <div id="follows"> 300 </div>
+         </li>
+      </ul>
+
+      <button class="userFollowBtn">
+         <a id="followLink" href=""> Follow </a>
+      </button>
+      
+   </div>
+
+   <script src="./script.js"></script> 
+</body>
 </html>

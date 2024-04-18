@@ -1,91 +1,48 @@
-const Products = [
-   {id: 1, name: "Shirt", price:299},
-   {id: 2, name: "T-Shirt", price:199},
-   {id: 3, name: "Jeans", price:499},
-   {id: 4, name: "Kurta", price:599},
-];
+const apikey = `https://api.github.com/users/`;
 
 
-let productItemList = document.querySelector(".product");
-let cartItemList = document.querySelector(".box");
-let para =document.querySelector(".msg");
-let totalPrice = document.querySelector(".total")
+let searchBtn = document.getElementById("srchBtn");
+let userInput = document.getElementById("Input");
+let userProfile = document.getElementById("dp");
+let userName = document.getElementById("userName");
+let userBio = document.getElementById("userBio");
+let userRepos = document.getElementById("repo");
+let userFollowers = document.getElementById("followers");
+let userFollowing = document.getElementById("follows");
+let joined = document.getElementById("joined");
+let mainCard = document.getElementById("main-card");
+let followLink = document.getElementById("followLink");
 
 
-function changequantity(e , count){
-   e.target.parentNode.children[1].innerText = count
-   let productName =  e.target.parentNode.parentNode.children[0].innerText;
-   Products.forEach((prod) => {
-      if(prod.name === productName){
-         prod.count = count; 
-      }
-   });
-    
-   cartItemList.innerHTML = "";
-   let total = 0;
+searchBtn.addEventListener("click", () => {
+   fetch(apikey + userInput.value)
+      .then(response => {
+         if (!response.ok){
+            throw new Error("Nework response error");
+         }
+         return response.json();
+      })
+      .then(outputData => {
+         displayOutputData(outputData);
+         console.log(outputData);
+      })
+      .catch(error => {
+         alert("User ID Not Found!!!")
+      })
+      userInput.value = "";
+})
 
-   Products.forEach((ele)=>{
-      if(ele.count > 0){
-         let div = document.createElement("div");
-         div.innerHTML = `
-         <div >${ele.name}</div>
-         <div class="price"><div>${ele.count}</div>
-         <div>x</div>
-         <div>${ele.price}</div></div>`
-         
-         div.classList.add('cartItem')
-         cartItemList.appendChild(div);
 
-         total += ele.count * ele.price
-         totalPrice.innerHTML= ` Final Ammount = ₹${total}/- Only`;
-      }
-   });
-
-   if (cartItemList.children.length === 0) {
-      let para = document.createElement("p")
-      para.innerHTML = `Please add some Items in cart`;
-      para.style.fontSize ='25px'
-      para.style.padding = '5rem 3rem'
-      para.style.fontWeight = 'bold'
-      cartItemList.appendChild(para);
-      totalPrice.innerHTML= ` Final Ammount = 00/-`;
-   }
+function displayOutputData(resultIs) {
+   mainCard.style.display = "block";
+   console.log(resultIs);
+   userFollowers.innerText = resultIs.followers;
+   userFollowing.innerText = resultIs.following;
+   userRepos.innerText = resultIs.public_repos;
+   userProfile.src = resultIs.avatar_url;
+   userName.innerText = resultIs.name;
+   followLink.href = resultIs.html_url;
+   userBio.innerText =  resultIs.bio ? resultIs.bio : "{User has not entered Bio}";
+   document.getElementById("userlocation").innerText = resultIs.location;
+   joined.innerHTML = `<p>Joined : ${new Date(resultIs.created_at).toLocaleDateString('en-US')} </p>`;
 }
-
-
-productItemList.addEventListener('click', (e)=>{
-   let count = 0;
-
-   if(e.target.innerText === "+"){
-      count = Number(e.target.parentNode.children[1].innerText)
-      count++
-      changequantity(e, count)
-   }
-   else if(e.target.innerText === "-"){
-      count = Number(e.target.parentNode.children[1].innerText)
-      if(count > 0){
-         count--;
-         changequantity(e, count)
-      }
-      else{
-         alert("Item Quantity can not be negative");
-      }
-   }
-});
-
-
-function showproductList(){
-   Products.forEach((e)=>{
-      let div = document.createElement("div");
-
-      div.innerHTML = `
-         <div class="Name">${e.name}</div>
-         <div class="rate"> ₹${e.price}/-</div>
-         <div class="addorremoveBtn"> 
-         <span class="minus"> - </span><p class="quantity"> 0 </p><span class="plus"> + </span>  </div>`
-         div.classList.add("productstyle")
-         productItemList.appendChild(div);
-   })
-}
-
-window.onload = showproductList();
